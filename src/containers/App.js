@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchQuizIfNeeded } from '../actions'
+import Header from '../components/Header'
 
 class App extends Component {
 
@@ -17,13 +18,12 @@ class App extends Component {
   render() {
     const { spec, isFetching } = this.props.quiz
     const isLoadingSpec = !spec && isFetching
-    console.log(spec)
     return (
-      <div>
+      <div className="container">
         {isLoadingSpec
           ? <h2>Loading...</h2>
           : <div>
-              <h1>{spec.title}</h1>
+              <Header title={spec.title} description={spec.description} />
             </div>
         }
       </div>
@@ -39,7 +39,10 @@ const mapStateToProps = state => {
   return {
     quiz: {
       isFetching,
-      spec: spec || {}
+      spec: spec || {
+        title: "",
+        description: ""
+      }
     }
   }
 }
