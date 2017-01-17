@@ -5,7 +5,9 @@ import Question from '../components/Question'
 const blankQuestion = {
   img: "",
   title: "",
-  question_type: ""
+  question_type: "",
+  correct_answer: 0,
+  points: 0
 }
 
 const getCurrentQuestion = (quiz, currentIndex) => {
