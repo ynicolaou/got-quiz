@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchQuizIfNeeded } from '../actions'
 import Header from '../components/Header'
+import CurrentQuestion from './CurrentQuestion'
 
 class App extends Component {
 
@@ -24,6 +25,7 @@ class App extends Component {
           ? <h2>Loading...</h2>
           : <div>
               <Header title={spec.title} description={spec.description} />
+              <CurrentQuestion />
             </div>
         }
       </div>
@@ -33,15 +35,17 @@ class App extends Component {
 
 
 const mapStateToProps = state => {
-  const { quiz } = state
+  const { quiz, currentIndex } = state
   const { spec, isFetching} = quiz
 
   return {
+    currentIndex: currentIndex || 0,
     quiz: {
       isFetching,
       spec: spec || {
         title: "",
-        description: ""
+        description: "",
+        questions: []
       }
     }
   }

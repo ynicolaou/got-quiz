@@ -1,5 +1,6 @@
 export const REQUEST_QUIZ = 'REQUEST_QUIZ'
 export const RECEIVE_QUIZ = 'RECEIVE_QUIZ'
+export const NEXT_QUESTION = 'NEXT_QUESTION'
 
 export const requestQuiz = () => ({
   type: REQUEST_QUIZ
@@ -33,3 +34,7 @@ export const fetchQuizIfNeeded = () => (dispatch, getState) => {
     return dispatch(fetchQuiz())
   }
 }
+
+export const nextQuestion = () => ({
+  type: NEXT_QUESTION
+})

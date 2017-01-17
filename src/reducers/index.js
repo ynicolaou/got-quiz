@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import {
-  REQUEST_QUIZ, RECEIVE_QUIZ
+  REQUEST_QUIZ, RECEIVE_QUIZ,
+  NEXT_QUESTION
 } from '../actions'
 
 const quiz = (state = {}, action) => {
@@ -21,8 +22,20 @@ const quiz = (state = {}, action) => {
   }
 }
 
+const currentIndex = (state = 0, action) => {
+  switch (action.type) {
+    case NEXT_QUESTION:
+      return ++state;
+    case REQUEST_QUIZ:
+    case RECEIVE_QUIZ:
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
-  quiz
+  quiz,
+  currentIndex
 })
 
 export default rootReducer
