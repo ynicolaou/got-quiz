@@ -3,40 +3,29 @@ import MCSingleQuestion from '../components/MCSingleQuestion'
 import MCMultiQuestion from '../components/MCMultiQuestion'
 import TrueFalseQuestion from '../components/TrueFalseQuestion'
 
-const getQuestionOptions = (question) => {
+const getAnswerOptions = (question, isLastQuestion, onNextClick) => {
   switch(question.question_type) {
     case "mutiplechoice-single":
-      return <MCSingleQuestion question={question} />
+      return <MCSingleQuestion question={question} isLastQuestion={isLastQuestion} onNextClick={onNextClick} />
     case "mutiplechoice-multiple":
-      return <MCMultiQuestion question={question} />
+      return <MCMultiQuestion question={question} isLastQuestion={isLastQuestion} onNextClick={onNextClick} />
     case "truefalse":
-      return <TrueFalseQuestion question={question} />
+      return <TrueFalseQuestion question={question} isLastQuestion={isLastQuestion} onNextClick={onNextClick} />
     default:
       return null;
   }
 }
 
 const Question = ({ question, isLastQuestion, onNextClick}) => {
-  let questionOptions = getQuestionOptions(question);
+  let answerOptions = getAnswerOptions(question, isLastQuestion, onNextClick);
   return (
-    <form>
+    <div>
       <img src={question.img}
            alt={question.title}
            className="img-thumbnail"/>
       <p>{question.title}</p>
-      {questionOptions}
-      {isLastQuestion
-        ? <button type="button"
-                  className="btn btn-primary">
-            Finish
-          </button>
-        : <button type="button"
-                  className="btn btn-primary"
-                  onClick={() => onNextClick(question)}>
-            Next
-          </button>
-      }
-    </form>
+      {answerOptions}
+    </div>
   );
 }
 
