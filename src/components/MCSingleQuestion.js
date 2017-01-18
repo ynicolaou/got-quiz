@@ -4,8 +4,8 @@ const MCSingleQuestion = ({ question }) => {
   return (
     <fieldset className="btn-group container" data-toggle="buttons">
       {question.possible_answers.map(option =>
-        <label key={option.a_id} className="btn btn-primary">
-          <input type="radio" autoComplete="off" /> {option.caption}
+        <label key={option.a_id} >
+          <input name="answerOptions" type="radio" autoComplete="off" /> {option.caption}
         </label>
       )}
     </fieldset>
