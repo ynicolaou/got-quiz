@@ -2,6 +2,7 @@
   "name": "got-quiz",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://ynicolaou.github.io/got-quiz/build"
   "devDependencies": {
     "react-scripts": "0.8.5",
     "redux-logger": "^2.6.1",
