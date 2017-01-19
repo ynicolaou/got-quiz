@@ -15,7 +15,7 @@ export default class TrueFalseQuestion extends Component {
     });
   }
 
-  handleNextClick(event, goToNext, question, registerScore) {
+  handleNextClick(event, goToNext, question, registerScore, isLastQuestion) {
     this.setState({
       ...this.state,
       showAnswer: true}
@@ -26,8 +26,10 @@ export default class TrueFalseQuestion extends Component {
     // Show answer validation for 3 seconds before moving on the next one
     setTimeout(
       () => {
-        registerScore(pointsScored, question.points)
-        goToNext()
+        registerScore(pointsScored, question.points);
+        if(!isLastQuestion) {
+          goToNext();
+        }
       }, 3000);
   }
 
@@ -71,19 +73,12 @@ export default class TrueFalseQuestion extends Component {
                    autoComplete="off"
                    disabled={this.state.showAnswer} /> False
           </label>
-          {isLastQuestion
-            ? <button type="button"
-                      className="btn btn-primary"
-                      disabled={this.buttonsDisabled()}>
-                Finish
-              </button>
-            : <button type="button"
-                      className="btn btn-primary"
-                      onClick={(event) => this.handleNextClick(event, onNextClick, question, registerScore)}
-                      disabled={this.buttonsDisabled()}>
-                Next
-              </button>
-          }
+          <button type="button"
+                  className="btn btn-primary"
+                  onClick={(event) => this.handleNextClick(event, onNextClick, question, registerScore, isLastQuestion)}
+                  disabled={this.buttonsDisabled()}>
+            {isLastQuestion ? 'Finish' : 'Next'}
+          </button>
         </fieldset>
       </form>
     )
