@@ -6,13 +6,39 @@ export default class TrueFalseQuestion extends Component {
     super(props);
     this.state = {};
     this.handleChange = this.handleChange.bind(this);
+    this.handleNextClick = this.handleNextClick.bind(this);
   }
 
   handleChange(event) {
     this.setState({
-      answer_given: event.target.id === 'true'
+      answerGiven: event.target.id === 'true'
     });
-    console.log(this.state);
+  }
+
+  handleNextClick(event, doAction, question) {
+    this.setState({
+      ...this.state,
+      showAnswer: true}
+    );
+    // Show answer validation for 3 seconds before moving on the next one
+    setTimeout(
+      () => {
+        doAction(question)
+      }, 3000);
+  }
+
+  getAnswerValidationClass(option) {
+    if(!this.state.showAnswer){
+      return ""
+    }
+    if(option === this.props.question.correct_answer){
+      return "text-success";
+    }
+    if(option === this.state.answerGiven &&
+       this.state.answerGiven !== this.props.question.correct_answer){
+      return "text-danger";
+    }
+    return "";
   }
 
   render() {
@@ -20,28 +46,32 @@ export default class TrueFalseQuestion extends Component {
     return (
       <form>
         <fieldset className="btn-group container" data-toggle="buttons">
-          <label>
+          <label className={this.getAnswerValidationClass(true)}>
             <input id="true"
                    onChange={this.handleChange}
                    type="radio"
                    name="answerOptions"
-                   autoComplete="off" /> True
+                   autoComplete="off"
+                   disabled={this.state.showAnswer} /> True
           </label>
-          <label>
+          <label className={this.getAnswerValidationClass(false)}>
             <input id="false"
                    onChange={this.handleChange}
                    type="radio"
                    name="answerOptions"
-                   autoComplete="off" /> False
+                   autoComplete="off"
+                   disabled={this.state.showAnswer} /> False
           </label>
           {isLastQuestion
             ? <button type="button"
-                      className="btn btn-primary">
+                      className="btn btn-primary"
+                      disabled={!this.state.answerGiven === undefined}>
                 Finish
               </button>
             : <button type="button"
                       className="btn btn-primary"
-                      onClick={() => onNextClick(question)}>
+                      onClick={(event) => this.handleNextClick(event, onNextClick, question)}
+                      disabled={!this.state.answerGiven === undefined}>
                 Next
               </button>
           }

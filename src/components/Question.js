@@ -6,11 +6,20 @@ import TrueFalseQuestion from '../components/TrueFalseQuestion'
 const getAnswerOptions = (question, isLastQuestion, onNextClick) => {
   switch(question.question_type) {
     case "mutiplechoice-single":
-      return <MCSingleQuestion question={question} isLastQuestion={isLastQuestion} onNextClick={onNextClick} />
+      return <MCSingleQuestion key={question.q_id}
+                               question={question}
+                               isLastQuestion={isLastQuestion}
+                               onNextClick={onNextClick} />
     case "mutiplechoice-multiple":
-      return <MCMultiQuestion question={question} isLastQuestion={isLastQuestion} onNextClick={onNextClick} />
+      return <MCMultiQuestion key={question.q_id}
+                              question={question}
+                              isLastQuestion={isLastQuestion}
+                              onNextClick={onNextClick} />
     case "truefalse":
-      return <TrueFalseQuestion question={question} isLastQuestion={isLastQuestion} onNextClick={onNextClick} />
+      return <TrueFalseQuestion key={question.q_id}
+                                question={question}
+                                isLastQuestion={isLastQuestion}
+                                onNextClick={onNextClick} />
     default:
       return null;
   }

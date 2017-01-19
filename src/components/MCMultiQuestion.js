@@ -10,7 +10,7 @@ export default class MCMultiQuestion extends Component {
 
   handleChange(event) {
     this.state = {
-      answer_given: event.target.id
+      answerChoice: event.target.id
     }
     console.log(event.target.id);
     console.log(event.target.checked);
