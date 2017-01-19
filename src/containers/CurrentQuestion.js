@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { nextQuestion } from '../actions'
+import { nextQuestion, registerScore } from '../actions'
 import Question from '../components/Question'
 
 const blankQuestion = {
@@ -32,7 +32,8 @@ const mapStateToProps = ({quiz, currentIndex}) => ({
 })
 
 const mapDispatchToProps =  ({
-  onNextClick: nextQuestion
+  onNextClick: nextQuestion,
+  registerScore: registerScore
 })
 
 const CurrentQuestion = connect(

@@ -15,15 +15,19 @@ export default class TrueFalseQuestion extends Component {
     });
   }
 
-  handleNextClick(event, doAction, question) {
+  handleNextClick(event, goToNext, question, registerScore) {
     this.setState({
       ...this.state,
       showAnswer: true}
     );
+    let pointsScored = this.state.answerGiven === question.correct_answer
+                        ? question.points
+                        : 0;
     // Show answer validation for 3 seconds before moving on the next one
     setTimeout(
       () => {
-        doAction(question)
+        registerScore(pointsScored, question.points)
+        goToNext()
       }, 3000);
   }
 
@@ -47,7 +51,7 @@ export default class TrueFalseQuestion extends Component {
   }
 
   render() {
-    const { question, isLastQuestion, onNextClick } = this.props
+    const { question, isLastQuestion, onNextClick, registerScore } = this.props
     return (
       <form>
         <fieldset className="btn-group container" data-toggle="buttons">
@@ -75,7 +79,7 @@ export default class TrueFalseQuestion extends Component {
               </button>
             : <button type="button"
                       className="btn btn-primary"
-                      onClick={(event) => this.handleNextClick(event, onNextClick, question)}
+                      onClick={(event) => this.handleNextClick(event, onNextClick, question, registerScore)}
                       disabled={this.buttonsDisabled()}>
                 Next
               </button>

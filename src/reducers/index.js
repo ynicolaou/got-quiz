@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import {
   REQUEST_QUIZ, RECEIVE_QUIZ,
-  NEXT_QUESTION
+  NEXT_QUESTION, REGISTER_SCORE
 } from '../actions'
 
 const quiz = (state = {}, action) => {
@@ -33,9 +33,26 @@ const currentIndex = (state = 0, action) => {
   }
 }
 
+const score = (state = {}, action) => {
+  switch (action.type) {
+    case REGISTER_SCORE:
+      return {
+        ...state,
+        points: state.points ? state.points+action.score : action.score,
+        maxPoints: state.maxPoints ? state.maxPoints+action.maxPoints : action.maxPoints
+      };
+    case NEXT_QUESTION:
+    case REQUEST_QUIZ:
+    case RECEIVE_QUIZ:
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
   quiz,
-  currentIndex
+  currentIndex,
+  score
 })
 
 export default rootReducer

@@ -3,30 +3,33 @@ import MCSingleQuestion from '../components/MCSingleQuestion'
 import MCMultiQuestion from '../components/MCMultiQuestion'
 import TrueFalseQuestion from '../components/TrueFalseQuestion'
 
-const getAnswerOptions = (question, isLastQuestion, onNextClick) => {
+const getAnswerOptions = (question, isLastQuestion, onNextClick, registerScore) => {
   switch(question.question_type) {
     case "mutiplechoice-single":
       return <MCSingleQuestion key={question.q_id}
                                question={question}
                                isLastQuestion={isLastQuestion}
-                               onNextClick={onNextClick} />
+                               onNextClick={onNextClick}
+                               registerScore={registerScore} />
     case "mutiplechoice-multiple":
       return <MCMultiQuestion key={question.q_id}
                               question={question}
                               isLastQuestion={isLastQuestion}
-                              onNextClick={onNextClick} />
+                              onNextClick={onNextClick}
+                              registerScore={registerScore} />
     case "truefalse":
       return <TrueFalseQuestion key={question.q_id}
                                 question={question}
                                 isLastQuestion={isLastQuestion}
-                                onNextClick={onNextClick} />
+                                onNextClick={onNextClick}
+                                registerScore={registerScore} />
     default:
       return null;
   }
 }
 
-const Question = ({ question, isLastQuestion, onNextClick}) => {
-  let answerOptions = getAnswerOptions(question, isLastQuestion, onNextClick);
+const Question = ({ question, isLastQuestion, onNextClick, registerScore}) => {
+  let answerOptions = getAnswerOptions(question, isLastQuestion, onNextClick, registerScore);
   return (
     <div>
       <img src={question.img}
