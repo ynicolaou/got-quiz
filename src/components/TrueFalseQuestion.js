@@ -41,6 +41,11 @@ export default class TrueFalseQuestion extends Component {
     return "";
   }
 
+  buttonsDisabled() {
+    return this.state.answerGiven === undefined ||
+           this.state.showAnswer === true;
+  }
+
   render() {
     const { question, isLastQuestion, onNextClick } = this.props
     return (
@@ -65,13 +70,13 @@ export default class TrueFalseQuestion extends Component {
           {isLastQuestion
             ? <button type="button"
                       className="btn btn-primary"
-                      disabled={!this.state.answerGiven === undefined}>
+                      disabled={this.buttonsDisabled()}>
                 Finish
               </button>
             : <button type="button"
                       className="btn btn-primary"
                       onClick={(event) => this.handleNextClick(event, onNextClick, question)}
-                      disabled={!this.state.answerGiven === undefined}>
+                      disabled={this.buttonsDisabled()}>
                 Next
               </button>
           }
