@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import classNames from 'classnames'
 
 export default class TrueFalseQuestion extends Component {
 
@@ -56,30 +57,36 @@ export default class TrueFalseQuestion extends Component {
     const { question, isLastQuestion, onNextClick, registerScore } = this.props
     return (
       <form>
-        <fieldset className="btn-group container" data-toggle="buttons">
-          <label className={this.getAnswerValidationClass(true)}>
-            <input id="true"
-                   onChange={this.handleChange}
-                   type="radio"
-                   name="answerOptions"
-                   autoComplete="off"
-                   disabled={this.state.showAnswer} /> True
-          </label>
-          <label className={this.getAnswerValidationClass(false)}>
-            <input id="false"
-                   onChange={this.handleChange}
-                   type="radio"
-                   name="answerOptions"
-                   autoComplete="off"
-                   disabled={this.state.showAnswer} /> False
-          </label>
-          <button type="button"
-                  className="btn btn-primary"
-                  onClick={(event) => this.handleNextClick(event, onNextClick, question, registerScore, isLastQuestion)}
-                  disabled={this.buttonsDisabled()}>
-            {isLastQuestion ? 'Finish' : 'Next'}
-          </button>
+        <fieldset className="form-group">
+          <div className="form-check">
+            <label className={classNames("form-check-label", this.getAnswerValidationClass(true))}>
+              <input className="form-check-input"
+                     id="true"
+                     onChange={this.handleChange}
+                     type="radio"
+                     name="answerOptions"
+                     autoComplete="off"
+                     disabled={this.state.showAnswer} /> True
+            </label>
+          </div>
+          <div className="form-check">
+            <label className={classNames("form-check-label", this.getAnswerValidationClass(false))}>
+              <input className="form-check-input"
+                     id="false"
+                     onChange={this.handleChange}
+                     type="radio"
+                     name="answerOptions"
+                     autoComplete="off"
+                     disabled={this.state.showAnswer} /> False
+            </label>
+          </div>
         </fieldset>
+        <button type="button"
+                className="btn btn-primary"
+                onClick={(event) => this.handleNextClick(event, onNextClick, question, registerScore, isLastQuestion)}
+                disabled={this.buttonsDisabled()}>
+          {isLastQuestion ? 'Finish' : 'Next'}
+        </button>
       </form>
     )
   }

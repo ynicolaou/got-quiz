@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import classNames from 'classnames'
 
 export default class MCSingleQuestion extends Component {
   constructor(props) {
@@ -56,24 +57,28 @@ export default class MCSingleQuestion extends Component {
     const { question, isLastQuestion, onNextClick, registerScore } = this.props
     return (
       <form>
-        <fieldset className="btn-group container" data-toggle="buttons">
+        <fieldset className="form-group">
           {question.possible_answers.map(option =>
-            <label className={this.getAnswerValidationClass(option)} key={option.a_id} >
-              <input id={option.a_id}
-                     onChange={this.handleChange}
-                     name="answerOptions"
-                     type="radio"
-                     autoComplete="off"
-                     disabled={this.state.showAnswer} /> {option.caption}
-            </label>
+            <div className="form-check">
+              <label className={classNames("form-check-label", this.getAnswerValidationClass(option))}
+                     key={option.a_id} >
+                <input className="form-check-input"
+                       id={option.a_id}
+                       onChange={this.handleChange}
+                       name="answerOptions"
+                       type="radio"
+                       autoComplete="off"
+                       disabled={this.state.showAnswer} /> {option.caption}
+              </label>
+            </div>
           )}
-          <button type="button"
-                  className="btn btn-primary"
-                  onClick={(event) => this.handleNextClick(event, onNextClick, question, registerScore, isLastQuestion)}
-                  disabled={this.buttonsDisabled()}>
-            {isLastQuestion ? 'Finish' : 'Next'}
-          </button>
         </fieldset>
+        <button type="button"
+                className="btn btn-primary"
+                onClick={(event) => this.handleNextClick(event, onNextClick, question, registerScore, isLastQuestion)}
+                disabled={this.buttonsDisabled()}>
+          {isLastQuestion ? 'Finish' : 'Next'}
+        </button>
       </form>
     )
   }
