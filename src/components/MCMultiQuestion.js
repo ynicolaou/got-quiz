@@ -64,9 +64,8 @@ export default class MCMultiQuestion extends Component {
       <form>
         <fieldset className="form-group">
           {question.possible_answers.map(option =>
-            <div className="form-check">
-              <label key={option.a_id}
-                     className={classNames("form-check-label", this.getAnswerValidationClass(option))}>
+            <div key={option.a_id} className="form-check">
+              <label className={classNames("form-check-label", this.getAnswerValidationClass(option))}>
                 <input className="form-check-input"
                        id={option.a_id}
                        onChange={this.handleChange}

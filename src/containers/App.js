@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchQuizIfNeeded } from '../actions'
+import { fetchQuizIfNeeded, fetchGradesIfNeeded } from '../actions'
 import Header from '../components/Header'
 import CurrentQuestion from './CurrentQuestion'
 
@@ -14,6 +14,7 @@ class App extends Component {
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(fetchQuizIfNeeded())
+    dispatch(fetchGradesIfNeeded())
   }
 
   render() {
