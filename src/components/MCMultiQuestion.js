@@ -21,7 +21,7 @@ export default class MCMultiQuestion extends Component {
     });
   }
 
-  handleNextClick(event, goToNext, question, registerScore, isLastQuestion) {
+  handleNextClick(event, { nextQuestion, question, registerScore, isLastQuestion, showResults }) {
     this.setState({
       ...this.state,
       showAnswer: true}
@@ -34,7 +34,9 @@ export default class MCMultiQuestion extends Component {
       () => {
         registerScore(pointsScored, question.points);
         if(!isLastQuestion) {
-          goToNext();
+          nextQuestion();
+        } else {
+          showResults();
         }
       }, 3000);
   }
@@ -59,7 +61,7 @@ export default class MCMultiQuestion extends Component {
   }
 
   render() {
-    const { question, isLastQuestion, onNextClick, registerScore } = this.props
+    const { question, isLastQuestion } = this.props
     return (
       <form>
         <fieldset className="form-group">
@@ -78,7 +80,7 @@ export default class MCMultiQuestion extends Component {
         </fieldset>
         <button type="button"
                 className="btn btn-primary"
-                onClick={(event) => this.handleNextClick(event, onNextClick, question, registerScore, isLastQuestion)}
+                onClick={(event) => this.handleNextClick(event, this.props)}
                 disabled={this.buttonsDisabled()}>
           {isLastQuestion ? 'Finish' : 'Next'}
         </button>

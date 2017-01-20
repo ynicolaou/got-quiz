@@ -16,7 +16,7 @@ export default class TrueFalseQuestion extends Component {
     });
   }
 
-  handleNextClick(event, goToNext, question, registerScore, isLastQuestion) {
+  handleNextClick(event, { question, isLastQuestion, nextQuestion, registerScore, showResults }) {
     this.setState({
       ...this.state,
       showAnswer: true}
@@ -29,7 +29,9 @@ export default class TrueFalseQuestion extends Component {
       () => {
         registerScore(pointsScored, question.points);
         if(!isLastQuestion) {
-          goToNext();
+          nextQuestion();
+        } else {
+          showResults();
         }
       }, 3000);
   }
@@ -54,7 +56,7 @@ export default class TrueFalseQuestion extends Component {
   }
 
   render() {
-    const { question, isLastQuestion, onNextClick, registerScore } = this.props
+    const { isLastQuestion } = this.props
     return (
       <form>
         <fieldset className="form-group">
@@ -83,7 +85,7 @@ export default class TrueFalseQuestion extends Component {
         </fieldset>
         <button type="button"
                 className="btn btn-primary"
-                onClick={(event) => this.handleNextClick(event, onNextClick, question, registerScore, isLastQuestion)}
+                onClick={(event) => this.handleNextClick(event, this.props)}
                 disabled={this.buttonsDisabled()}>
           {isLastQuestion ? 'Finish' : 'Next'}
         </button>

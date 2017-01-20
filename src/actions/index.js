@@ -4,6 +4,7 @@ export const NEXT_QUESTION = 'NEXT_QUESTION'
 export const REGISTER_SCORE = 'REGISTER_SCORE'
 export const REQUEST_GRADES = 'REQUEST_GRADES'
 export const RECEIVE_GRADES = 'RECEIVE_GRADES'
+export const SHOW_RESULTS = 'SHOW_RESULTS'
 
 const fetchJson = (dispatch, requestAction, receiveAction, jsonUrl) => {
   dispatch(requestAction())
@@ -73,3 +74,7 @@ export const fetchGradesIfNeeded = () => (dispatch, getState) => {
     return dispatch(fetchGrades())
   }
 }
+
+export const showResults = () => ({
+  type: SHOW_RESULTS
+})
