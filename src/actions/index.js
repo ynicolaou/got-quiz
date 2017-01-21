@@ -6,6 +6,9 @@ export const REQUEST_GRADES = 'REQUEST_GRADES'
 export const RECEIVE_GRADES = 'RECEIVE_GRADES'
 export const SHOW_RESULTS = 'SHOW_RESULTS'
 
+/*
+ * Helper Functions
+ */
 const fetchJson = (dispatch, requestAction, receiveAction, jsonUrl) => {
   dispatch(requestAction())
   return fetch(jsonUrl)
@@ -23,6 +26,9 @@ const shouldFetchJson = (value, isFetching) => {
   return false;
 }
 
+/*
+ * Actions
+ */
 export const requestQuiz = () => ({
   type: REQUEST_QUIZ
 })
@@ -32,11 +38,11 @@ export const receiveQuiz = (json) => ({
   quiz: json
 })
 
-const fetchQuiz = () => dispatch =>
+const fetchQuiz = () => (dispatch) =>
   fetchJson(dispatch,
             requestQuiz,
             receiveQuiz,
-            `https://proto.io/en/jobs/candidate-questions/quiz.json`)
+            'https://proto.io/en/jobs/candidate-questions/quiz.json')
 
 export const fetchQuizIfNeeded = () => (dispatch, getState) => {
   if(shouldFetchJson(getState().quiz.spec, getState().isFetching)) {
@@ -48,9 +54,9 @@ export const nextQuestion = () => ({
   type: NEXT_QUESTION
 })
 
-export const registerScore = (score, maxPoints) => ({
+export const registerScore = (points, maxPoints) => ({
   type: REGISTER_SCORE,
-  score: score,
+  points: points,
   maxPoints: maxPoints
 })
 
@@ -63,11 +69,11 @@ export const receiveGrades = (json) => ({
   grades: json
 })
 
-const fetchGrades = () => dispatch =>
+const fetchGrades = () => (dispatch) =>
   fetchJson(dispatch,
             requestGrades,
             receiveGrades,
-            `https://proto.io/en/jobs/candidate-questions/result.json`)
+            'https://proto.io/en/jobs/candidate-questions/result.json')
 
 export const fetchGradesIfNeeded = () => (dispatch, getState) => {
   if(shouldFetchJson(getState().grades.spec, getState().isFetching)) {

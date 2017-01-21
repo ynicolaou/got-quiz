@@ -8,8 +8,15 @@ import ResultsContainer from './ResultsContainer'
 class App extends Component {
 
   static propTypes = {
-    quiz: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired
+    showResults: PropTypes.bool.isRequired,
+    quiz: PropTypes.shape({
+      isFetching: PropTypes.bool.isRequired,
+      spec: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        questions: PropTypes.array.isRequired
+      }).isRequired
+    }).isRequired
   }
 
   componentDidMount() {
@@ -20,10 +27,10 @@ class App extends Component {
 
   render() {
     const { spec, isFetching } = this.props.quiz
-    const isLoadingSpec = !spec && isFetching
+    const isLoadingQuiz = !spec && isFetching
     return (
       <div className="container">
-        {isLoadingSpec
+        {isLoadingQuiz
           ? <h2>Loading...</h2>
           : <div>
               <Header title={spec.title} description={spec.description} />
@@ -40,14 +47,13 @@ class App extends Component {
 
 
 const mapStateToProps = state => {
-  const { quiz, currentIndex } = state
+  const { quiz, showResults } = state
   const { spec, isFetching} = quiz
 
   return {
-    showResults: state.showResults || false,
-    currentIndex: currentIndex || 0,
+    showResults: showResults || false,
     quiz: {
-      isFetching,
+      isFetching: isFetching || false,
       spec: spec || {
         title: "",
         description: "",

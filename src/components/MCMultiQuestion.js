@@ -10,6 +10,7 @@ export default class MCMultiQuestion extends Component {
     this.handleNextClick = this.handleNextClick.bind(this);
   }
 
+  //When an answer is selected set it on the component's state
   handleChange(event) {
     let answerGiven = this.state.answerGiven || [];
     if(event.target.checked){
@@ -21,6 +22,8 @@ export default class MCMultiQuestion extends Component {
     });
   }
 
+  // When the next/finish button is pressed, persist the current score to the store,
+  // and proceed to the next question or to the results view
   handleNextClick(event, { nextQuestion, question, registerScore, isLastQuestion, showResults }) {
     this.setState({
       ...this.state,
@@ -29,7 +32,7 @@ export default class MCMultiQuestion extends Component {
     let pointsScored = this.state.answerGiven.sort().join(',') === question.correct_answer.sort().join(',')
                         ? question.points
                         : 0;
-    // Show answer validation for 3 seconds before moving on the next one
+    // Show answer validation for 3 seconds before moving on to the next one
     setTimeout(
       () => {
         registerScore(pointsScored, question.points);
@@ -41,13 +44,17 @@ export default class MCMultiQuestion extends Component {
       }, 3000);
   }
 
+  // Determines what css class to use when validating this option against the correct answer
   getAnswerValidationClass(option) {
+    //not ready to give the answer yet
     if(!this.state.showAnswer){
       return ""
     }
+    //correct answer
     if(this.props.question.correct_answer.indexOf(option.a_id) >= 0){
       return "text-success";
     }
+    //selected but not the correct answer
     if(this.state.answerGiven.indexOf(option.a_id) >= 0 &&
        this.props.question.correct_answer.indexOf(option.a_id) === -1){
       return "text-danger";

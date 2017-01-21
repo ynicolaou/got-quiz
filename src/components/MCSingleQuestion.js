@@ -9,12 +9,15 @@ export default class MCSingleQuestion extends Component {
     this.handleNextClick = this.handleNextClick.bind(this);
   }
 
+  //When an answer is selected set it on the component's state
   handleChange(event) {
     this.setState({
       answerGiven: +event.target.id
     });
   }
 
+  // When the next/finish button is pressed, persist the current score to the store,
+  // and proceed to the next question or to the results view
   handleNextClick(event, { question, isLastQuestion, nextQuestion, registerScore, showResults }) {
     this.setState({
       ...this.state,
@@ -24,7 +27,7 @@ export default class MCSingleQuestion extends Component {
     let pointsScored = this.state.answerGiven === question.correct_answer
                         ? question.points
                         : 0;
-    // Show answer validation for 3 seconds before moving on the next one
+    // Show answer validation for 3 seconds before moving on to the next one
     setTimeout(
       () => {
         registerScore(pointsScored, question.points);
@@ -36,13 +39,17 @@ export default class MCSingleQuestion extends Component {
       }, 3000);
   }
 
+  // Determines what css class to use when validating this option against the correct answer
   getAnswerValidationClass(option) {
+    //not ready to give the answer yet
     if(!this.state.showAnswer){
       return ""
     }
+    //correct answer
     if(option.a_id === this.props.question.correct_answer){
       return "text-success";
     }
+    //selected but not the correct answer
     if(option.a_id === this.state.answerGiven &&
        this.state.answerGiven !== this.props.question.correct_answer){
       return "text-danger";

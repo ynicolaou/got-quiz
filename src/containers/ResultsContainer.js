@@ -8,12 +8,15 @@ const ResultsContainer = ({ grade }) => (
 )
 
 ResultsContainer.propTypes = {
-  title: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  scorePercent: PropTypes.number.isRequired
+  grade: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    img: PropTypes.string.isRequired,
+    scorePercent: PropTypes.number.isRequired
+  }).isRequired
 }
 
+// calculates the final grade using the score and the grade sheet
 const getGrade = (score, grades) => {
   if(!grades.spec) {
     return {};
