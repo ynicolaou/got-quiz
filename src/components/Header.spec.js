@@ -24,7 +24,7 @@ describe('components', () => {
     it('should render container', () => {
       const { output } = setup()
       expect(output.type).toBe('div')
-      expect(output.props.className).toBe('header')
+      expect(output.props.className).toBe('jumbotron jumbotron-fluid')
     })
   })
 })
