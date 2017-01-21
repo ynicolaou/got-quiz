@@ -3,10 +3,12 @@ import React, { PropTypes } from 'react'
 const Header = ({ title, description }) => {
 
   return (
-    <div className="header">
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </div>
+    <div className="jumbotron jumbotron-fluid">
+      <div className="container">
+        <h1 className="display-3">{title}</h1>
+        <p className="lead">{description}</p>
+      </div>
+   </div>
   )
 }
 

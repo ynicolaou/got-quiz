@@ -36,7 +36,7 @@ const getAnswerOptions = ({ question, isLastQuestion, nextQuestion, registerScor
 const QuestionContainer = (props) => {
   let answerOptions = getAnswerOptions(props);
   return (
-    <div className="card" style={{width: "90%"}}>
+    <div className="card" >
       <img src={props.question.img}
            alt={props.question.title}
            className="card-img-top"/>
