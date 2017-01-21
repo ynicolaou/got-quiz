@@ -36,12 +36,14 @@ const getAnswerOptions = ({ question, isLastQuestion, nextQuestion, registerScor
 const QuestionContainer = (props) => {
   let answerOptions = getAnswerOptions(props);
   return (
-    <div>
+    <div className="card" style={{width: "90%"}}>
       <img src={props.question.img}
            alt={props.question.title}
-           className="img-thumbnail"/>
-      <p>{props.question.title}</p>
-      {answerOptions}
+           className="card-img-top"/>
+      <div className="card-block">
+        <h4 className="card-title">{props.question.title}</h4>
+        {answerOptions}
+      </div>
     </div>
   );
 }

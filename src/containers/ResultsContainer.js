@@ -22,7 +22,8 @@ const getGrade = (score, grades) => {
     return {};
   }
 
-  let scorePercent = (score.points / score.maxPoints) * 100
+  let scorePercent = (score.points / score.maxPoints) * 100;
+  scorePercent = scorePercent.toFixed(0);
   let grade = grades.spec.results.filter((r) => {
     return (scorePercent >= r.minpoints &&
             scorePercent <= r.maxpoints)
